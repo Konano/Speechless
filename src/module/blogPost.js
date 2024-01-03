@@ -105,7 +105,7 @@ const combineImageHtml = function (image, size) {
       (image.height / image.width) * 100
     }%"></i><img class="image-new" src="${image.url}" /></div>`
   } else {
-    str = `<img class="image-old" style="height:${size}px" src="${image.url}" />`
+    str = `<img class="image-old" style="max-height:${size}px" src="${image.url}" />`
   }
 
   return str
