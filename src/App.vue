@@ -27,7 +27,7 @@
           class="flex absolute right-0 top-0 border-l-2 border-b-2 rounded-bl-md"
         >
           <a
-            href="https://speechless.fun"
+            href="https://github.com/Konano/Speechless"
             title="帮助"
             target="_blank"
             class="p-1"
@@ -88,7 +88,7 @@
               </div>
               <span
                 class="ml-1 text-xs text-zinc-700 bg-zinc-100 rounded border-zinc-300 border px-1 py"
-                >V2.2</span
+                >V2.3</span
               >
             </div>
             <div
@@ -258,7 +258,7 @@
           请切到<span class="text-orange-600 font-medium px-1">用户主页</span
           >，再刷新下页面试试<br />
           去<a
-            href="https://speechless.fun"
+            href="https://github.com/Konano/Speechless"
             class="text-orange-600 font-medium underline px-1"
             target="_blank"
             >speechless.fun</a
@@ -285,7 +285,7 @@ export default {
     let user = await fetchUserInfo()
     this.isLoading = false
     if (user) {
-      console.log(user)
+      // console.log(user)
       this.isReady = true
       this.id = user.id || ""
       this.uid = user.uid || ""
@@ -349,8 +349,6 @@ export default {
   watch: {
     weiboImageScaleType() {
       // 获取 .speechless-list 元素
-
-      console.log(11)
       let scaleClassName =
         "speechless-list-" +
           ["small", "medium", "large"][this.weiboImageScaleType] || "medium"
@@ -369,7 +367,7 @@ export default {
     },
 
     setWeiboRange() {
-      console.log(this.yearMap)
+      // console.log(this.yearMap)
       let yearsLen = this.years.length || 0
       let startY = this.years[0]
       let startM = this.yearMap[this.years[0]][0]

@@ -34,7 +34,7 @@ const _getIDFromURL = function () {
       idfrom = "custom"
     }
   }
-  console.log("id from url is: ", id)
+  // console.log("id from url is:", id)
   return {
     idfrom,
     id,
@@ -50,7 +50,7 @@ const _fetchBlogHistory = async function (uid) {
     })
     try {
       let yearMap = historyResp.data.data
-      console.log("yearMap", yearMap)
+      // console.log("yearMap", yearMap)
       return yearMap
     } catch (error) {
       console.error(error)

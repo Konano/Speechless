@@ -28,7 +28,7 @@ export default {
   data() {
     let yearsArr = []
     if (!this.years) {
-      yearsArr = [2020, 2021, 2022, 2023]
+      yearsArr = [2020, 2021, 2022, 2023, 2024]
     } else {
       yearsArr = this.years
     }
@@ -71,14 +71,14 @@ export default {
         this.end = this.start
       }
       this.eventChanged()
-      console.log("start change")
+      // console.log("start change")
     },
     eventEndChanged() {
       if (!this.checkIfValid()) {
         this.start = this.end
       }
       this.eventChanged()
-      console.log("end change")
+      // console.log("end change")
     },
   },
 }

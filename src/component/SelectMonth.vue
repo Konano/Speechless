@@ -58,7 +58,7 @@ export default {
   },
   watch: {
     modelValue(newVal) {
-      console.log("watch!")
+      // console.log("watch!")
       this.selectedYear = newVal.year
       this.selectedMonth = newVal.month
     },
