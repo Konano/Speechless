@@ -321,7 +321,7 @@ export const fetchPost = async function (parameters, callback) {
   let requestParam = {
     uid,
     page,
-    feature: 4,
+    hasori: 1,
   }
   if (rangeType == 1) {
     requestParam = {
