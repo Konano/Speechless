@@ -3,12 +3,8 @@ import axios from "axios"
 const GetPostsByRangeApiURL = `https://weibo.com/ajax/statuses/searchProfile`
 const GetLongTextURL = `https://weibo.com/ajax/statuses/longtext`
 
-let page = 1
 let total = 0
 let count = 0
-let loadMore = true
-let _uid
-let _sourceType = 1
 let speechlessListEL
 
 let _callback
@@ -46,7 +42,7 @@ const generateHTML = function () {
 const appendSpeechless = function () {
   let dateString = getDate(new Date())
   let speechlessHtml = `
-   ${dateString} 使用 <a href="https://speechless.fun" target="_blank">&hearts; Speechless</a> 导出
+   ${dateString} 使用 <a href="https://github.com/Konano/Speechless" target="_blank">&hearts; Speechless</a> 导出
   `
   let node = document.createElement("div")
   node.className = "speechless-corpyright"
@@ -111,74 +107,71 @@ const combineImageHtml = function (image, size) {
 
 // 把卡片添加到页面中
 const appendPostToBody = function (post) {
-  if (_sourceType == 1 && (post.retweeted_status || post.user.id != _uid)) {
-  } else {
-    let metaHTML = ""
+  let metaHTML = ""
 
-    metaHTML += `<div class="meta">
-                <div class="meta-info">
-                    <span class="date">${getDate(post.created_at)}</span>`
-    if (post.region_name) {
-      metaHTML += `<div class="region">${post.region_name.replace(
-        "发布于 ",
-        ""
-      )}</div>`
-    }
-    metaHTML += `</div></div>`
-
-    let textHTML = `<div class="text">${clearLineBreak(
-      post.long_text_source || post.text || post.page_info?.page_title
+  metaHTML += `<div class="meta">
+              <div class="meta-info">
+                  <span class="date">${getDate(post.created_at)}</span>`
+  if (post.region_name) {
+    metaHTML += `<div class="region">${post.region_name.replace(
+      "发布于 ",
+      ""
     )}</div>`
-
-    let retweetHTML = ""
-    if (post.retweeted_status && post.retweeted_status.user) {
-      retweetHTML += `<div class="retweet">`
-      retweetHTML += `${
-        post.retweeted_status.user.screen_name
-          ? post.retweeted_status.user.screen_name
-          : ""
-      }<span style="margin:0 3px;">:</span>${clearLineBreak(
-        post.retweeted_status.long_text_source || post.retweeted_status.text
-      )}`
-      retweetHTML += `</div>`
-    }
-
-    let mediaHTML = ""
-
-    if (post.pic_infos) {
-      mediaHTML += '<div class="media media-small">'
-      for (let key in post.pic_infos) {
-        mediaHTML += combineImageHtml(post.pic_infos[key].large, 160)
-      }
-      mediaHTML += "</div>"
-
-      mediaHTML += '<div class="media media-medium">'
-      for (let key in post.pic_infos) {
-        mediaHTML += combineImageHtml(post.pic_infos[key].large, 320)
-      }
-      mediaHTML += "</div>"
-
-      mediaHTML += '<div class="media media-large">'
-      for (let key in post.pic_infos) {
-        mediaHTML += combineImageHtml(post.pic_infos[key].large, 500)
-      }
-      mediaHTML += "</div>"
-    }
-
-    let postHTML = `
-        ${metaHTML}
-        <div class="main">
-        ${textHTML}
-        ${retweetHTML}
-        ${mediaHTML}            
-        </div>`
-
-    let node = document.createElement("div")
-    node.className = "speechless-post"
-    node.innerHTML = postHTML
-
-    speechlessListEL.appendChild(node)
   }
+  metaHTML += `</div></div>`
+
+  let textHTML = `<div class="text">${clearLineBreak(
+    post.long_text_source || post.text || post.page_info?.page_title
+  )}</div>`
+
+  let retweetHTML = ""
+  if (post.retweeted_status && post.retweeted_status.user) {
+    retweetHTML += `<div class="retweet">`
+    retweetHTML += `${
+      post.retweeted_status.user.screen_name
+        ? post.retweeted_status.user.screen_name
+        : ""
+    }<span style="margin:0 3px;">:</span>${clearLineBreak(
+      post.retweeted_status.long_text_source || post.retweeted_status.text
+    )}`
+    retweetHTML += `</div>`
+  }
+
+  let mediaHTML = ""
+
+  if (post.pic_infos) {
+    mediaHTML += '<div class="media media-small">'
+    for (let key in post.pic_infos) {
+      mediaHTML += combineImageHtml(post.pic_infos[key].large, 160)
+    }
+    mediaHTML += "</div>"
+
+    mediaHTML += '<div class="media media-medium">'
+    for (let key in post.pic_infos) {
+      mediaHTML += combineImageHtml(post.pic_infos[key].large, 320)
+    }
+    mediaHTML += "</div>"
+
+    mediaHTML += '<div class="media media-large">'
+    for (let key in post.pic_infos) {
+      mediaHTML += combineImageHtml(post.pic_infos[key].large, 500)
+    }
+    mediaHTML += "</div>"
+  }
+
+  let postHTML = `
+      ${metaHTML}
+      <div class="main">
+      ${textHTML}
+      ${retweetHTML}
+      ${mediaHTML}            
+      </div>`
+
+  let node = document.createElement("div")
+  node.className = "speechless-post"
+  node.innerHTML = postHTML
+
+  speechlessListEL.appendChild(node)
 
   updateWholePageState()
 }
@@ -200,7 +193,7 @@ const fetchWithRetry = async function (
 }
 
 // 拉取数据，并且格式化
-const doFetch = async function (parameters) {
+const doFetch = async function (parameters, appendToBody = true) {
   if (!parameters) parameters = {}
 
   let offset = parseInt(new Date().valueOf()) - lastFetchTimeStamp
@@ -217,12 +210,10 @@ const doFetch = async function (parameters) {
 
   try {
     let resp = fetchResp.data.data
-    let list = resp.list
-    _callback({
-      type: "total",
-      value: resp.total,
-    })
-    await formatPosts(list, parameters.uid)
+    if (appendToBody) {
+      let list = resp.list
+      await formatPosts(list, parameters.uid)
+    }
     return resp
   } catch (err) {
     console.error(err)
@@ -306,6 +297,53 @@ const fetchLongText = async function (postid) {
   }
 }
 
+async function fetchPostTimeRange(requestParam, starttime, endtime) {
+  console.info(`[+] Fetching from ${starttime} to ${endtime}`)
+  requestParam.starttime = starttime
+  requestParam.endtime = endtime
+  requestParam.page = 100000
+  let respData = await doFetch(requestParam, false)
+
+  // 二次确认 total
+  // requestParam.page = Math.ceil(respData.total / 20)
+  // respData = await doFetch(requestParam, false)
+
+  // 如果太多了则二分获取
+  if (respData.total > 200) {
+    let midtime = Math.floor((starttime + endtime) / 2)
+    await fetchPostTimeRange(requestParam, midtime, endtime)
+    await fetchPostTimeRange(requestParam, starttime, midtime)
+    return
+  }
+  if (respData.total == 0) return
+
+  total += respData.total
+  _callback({
+    type: "total",
+    value: total,
+  })
+
+  let page = 1
+  let loadMore = true
+  while (loadMore) {
+    requestParam.page = page
+    let respData = await doFetch(requestParam)
+    console.log(respData)
+    if (!respData) {
+      // 如果是接口报错了，什么都不干，继续 page ++
+      console.info("[+] Fetch error, skip")
+    } else {
+      if (respData?.list?.length > 0) {
+        console.debug("[+] Keep loading")
+      } else {
+        loadMore = false
+        console.info("[+] No more data")
+      }
+    }
+    page++
+  }
+}
+
 // 拉取主要函数
 export const fetchPost = async function (parameters, callback) {
   _callback = callback
@@ -315,40 +353,25 @@ export const fetchPost = async function (parameters, callback) {
 
   let { uid, sourceType, rangeType, range } = parameters
 
-  _uid = uid
-  _sourceType = sourceType
-
   let requestParam = {
     uid,
-    page,
-    hasori: 1,
-  }
-  if (rangeType == 1) {
-    requestParam = {
-      ...requestParam,
-      starttime: getFirstDayTimestamp(range.start),
-      endtime: getLastDayTimestamp(range.end),
-    }
   }
 
-  while (loadMore) {
-    requestParam.page = page
-    let respData = await doFetch(requestParam)
-    console.log(respData)
-    if (!respData) {
-      // 如果是接口报错了，什么都不干，继续 page ++
-      console.log("接口报错了")
-    } else {
-      if (respData?.list?.length > 0) {
-        total = respData.total
-        console.log("继续拉")
-      } else {
-        loadMore = false
-        console.log("数据拉完了")
-      }
-    }
-    page++
+  console.log(sourceType)
+  if (sourceType == 1) {
+    requestParam.hasori = 1
   }
+
+  let starttime = 1233417600000
+  let endtime = new Date().getTime()
+  if (rangeType == 1) {
+    starttime = getFirstDayTimestamp(range.start)
+    endtime = getLastDayTimestamp(range.end)
+  }
+
+  await fetchPostTimeRange(requestParam, starttime, endtime)
 
   appendSpeechless()
+
+  console.log('')
 }
