@@ -1,23 +1,16 @@
 # Speechless
 
-![WechatIMG160 copy](https://user-images.githubusercontent.com/1685497/234859432-04ab3f05-82ae-4a2f-9b51-265c4998b38d.jpg)
+![](https://user-images.githubusercontent.com/1685497/234859432-04ab3f05-82ae-4a2f-9b51-265c4998b38d.jpg)
 
 Speechless 是一个帮助新浪微博用户，把微博内容导出成 PDF 进行本地备份的 Chrome Extension。
 
-查看官网👉 [https://sppechless.fun](https://speechless.fun)
-
-## 使用
-
-- 通过 Chrome Web Store 安装（推荐）
-
-  [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/igilfpckopigflpafgoajlljpdhmoall?color=green&label=Chrome%20Web%20Store&logo=google%20chrome&logoColor=white)](https://chrome.google.com/webstore/detail/speechless-%E5%BE%AE%E5%8D%9A%E5%A4%87%E4%BB%BD/igilfpckopigflpafgoajlljpdhmoall)
-
+> 原作者 [@meterscao](https://github.com/meterscao) 已不再维护 Speechless，并推出了升级版 [MemoMe](https://speechless.fun/)。如果你想要更多的功能（例如收藏评论），欢迎前往 [MemoMe](https://speechless.fun/) 体验。
 
 ## 简介
 
 ✅ 一键导出 PDF
 
-将微博的文字、图片、表情轻松备份成高质量PDF文件，方便阅读、浏览和储存。
+将微博的文字、图片、表情轻松备份成高质量 PDF 文件，方便阅读、浏览和储存。
 
 ✅ 支持时间范围筛选
 
@@ -39,13 +32,13 @@ Speechless 是一个帮助新浪微博用户，把微博内容导出成 PDF 进�
 
 支持选择图片备份的大小和清晰度，为你提供最佳的阅读和存储体验。
 
-![WechatIMG161 copy](https://user-images.githubusercontent.com/1685497/234859469-62b64b5a-728d-48e2-ac24-45d68266f751.jpg)
+![](https://user-images.githubusercontent.com/1685497/234859469-62b64b5a-728d-48e2-ac24-45d68266f751.jpg)
 
-![WechatIMG162 copy](https://user-images.githubusercontent.com/1685497/234859495-970397e5-1cbd-4272-868d-74ab1a6dac20.jpg)
+![](https://user-images.githubusercontent.com/1685497/234859495-970397e5-1cbd-4272-868d-74ab1a6dac20.jpg)
 
 ## 原理
 
-Chrome 并没有为 Extension 提供直接导出 PDF 的 Api，但是可以借助 Chrome 的 **打印预览/另存为 PDF** 功能，将网页的内容直接另存为 PDF。
+Chrome 并没有为 Extension 提供直接导出 PDF 的 API，但是可以借助 Chrome 的 **打印预览/另存为 PDF** 功能，将网页的内容直接另存为 PDF。
 
 所以 Speechless 做了以下几件事情：
 
@@ -67,7 +60,7 @@ Chrome 并没有为 Extension 提供直接导出 PDF 的 Api，但是可以借�
 ## 更新
 
 ### version 2.2
-- 修复了长文无法展开，只显示“展开”两个字的问题
+- 修复了长文无法展开，只显示「展开」两个字的问题
 - 保留了文本内容内的换行，使内容阅读体验更佳
 - 优化了导出文件的标题
  
@@ -76,15 +69,14 @@ Chrome 并没有为 Extension 提供直接导出 PDF 的 Api，但是可以借�
 - 支持选择图片大小
 - 支持仅备份原创微博
 - 支持最小化窗口
-- 支持多种url形式的微博主页
+- 支持多种 URL 形式的微博主页
 
-### version 1.2 
+### version 1.2
 - 增加了默认的拉取时间间隔，以避免拉取过于频繁被微博限制的问题。但目前的方法仍不是最优解法，尚有较大优化空间
 - 增加了拉取完成后，手动选择图片裁切样式的操作
-- 增加了拉取完成后，手动选择是否展示 转、赞、评 信息的操作 [@rickypeng99](https://github.com/rickypeng99)
+- 增加了拉取完成后，手动选择是否展示「转、赞、评」信息的操作 [@rickypeng99](https://github.com/rickypeng99)
 - 增加了拉取过程中暂停的操作
-### version 1.1 
+
+### version 1.1
 - 使用 Weibo API 获取用户 UID 和用户名 [@jingfelix](https://github.com/jingfelix)
-- 修复了 icon name 错误的大小写问题  [@jjhhms](https://github.com/jjhhms)
-
-
+- 修复了 icon name 错误的大小写问题 [@jjhhms](https://github.com/jjhhms)
