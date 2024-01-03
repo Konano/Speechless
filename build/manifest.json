@@ -22,14 +22,10 @@
         "https://weibo.com/*"
       ],
       "exclude_matches": [
-        "https://weibo.com",
         "https://weibo.com/",
         "https://weibo.com/hot/*",
         "https://weibo.com/tv/*",
-        "https://weibo.com/at/*",
-        "https://weibo.com/comment/*",
-        "https://weibo.com/like/*",
-        "https://weibo.com/mygroups*"
+        "https://weibo.com/ajax/*"
       ],
       "run_at": "document_end"
     }
