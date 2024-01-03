@@ -98,9 +98,9 @@ const combineImageHtml = function (image, size) {
 
   if (image.width > 0 && image.height > 0) {
     str = `<div class="image-container" style="width:${
-      (image.width * size) / image.height
+      Math.min(image.width, (image.width * size) / image.height)
     }px;flex-grow:${
-      (image.width * size) / image.height
+      Math.min(image.width, (image.width * size) / image.height)
     }"><i class="image-placeholder" style="padding-bottom:${
       (image.height / image.width) * 100
     }%"></i><img class="image-new" src="${image.url}" /></div>`
@@ -160,7 +160,7 @@ const appendPostToBody = function (post) {
 
     mediaHTML += '<div class="media media-large">'
     for (let key in post.pic_infos) {
-      mediaHTML += combineImageHtml(post.pic_infos[key].largest, 500)
+      mediaHTML += combineImageHtml(post.pic_infos[key].largest, 480)
     }
     mediaHTML += "</div>"
   }

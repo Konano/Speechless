@@ -24,9 +24,6 @@
       "js": [
         "index.js"
       ],
-      "css": [
-        "style/speechless.css"
-      ],
       "matches": [
         "https://weibo.com/u/*",
         "https://weibo.com/*"
