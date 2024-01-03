@@ -368,7 +368,7 @@ export const fetchPost = async function (parameters, callback) {
     requestParam.hasori = 1
   }
 
-  let starttime = 1233417600000
+  let starttime = 1233417600
   let endtime = new Date().getTime()
   if (rangeType == 1) {
     starttime = getFirstDayTimestamp(range.start)
