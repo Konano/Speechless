@@ -32,11 +32,17 @@ const updateWholePageState = function () {
 }
 
 // 把页面上的其他元素移除，并且初始化挂载节点
-const generateHTML = function () {
+const generateHTML = async function () {
   document.getElementById("app").remove()
   speechlessListEL = document.createElement("div")
   speechlessListEL.classList = "speechless-list speechless-list-small"
   document.body.append(speechlessListEL)
+
+  // 注入 CSS 到 HTML 以便另存为 MHTML
+  const css = await (await fetch(chrome.runtime.getURL("style/speechless.css"))).text()
+  const styleElement = document.createElement("style")
+  styleElement.innerText = css
+  document.head.appendChild(styleElement)
 }
 
 const appendSpeechless = function () {
@@ -349,7 +355,7 @@ export const fetchPost = async function (parameters, callback) {
   _callback = callback
 
   console.log(parameters)
-  generateHTML()
+  await generateHTML()
 
   let { uid, sourceType, rangeType, range } = parameters
 

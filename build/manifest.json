@@ -9,6 +9,16 @@
     "48": "icons/Speechless48.png",
     "128": "icons/Speechless128.png"
   },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "style/speechless.css"
+      ],
+      "matches": [
+        "https://weibo.com/*"
+      ]
+    }
+  ],
   "content_scripts": [
     {
       "js": [
@@ -31,6 +41,6 @@
     }
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+    "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }
