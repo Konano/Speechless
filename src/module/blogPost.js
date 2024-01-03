@@ -142,19 +142,19 @@ const appendPostToBody = function (post) {
   if (post.pic_infos) {
     mediaHTML += '<div class="media media-small">'
     for (let key in post.pic_infos) {
-      mediaHTML += combineImageHtml(post.pic_infos[key].large, 160)
+      mediaHTML += combineImageHtml(post.pic_infos[key].largest, 160)
     }
     mediaHTML += "</div>"
 
     mediaHTML += '<div class="media media-medium">'
     for (let key in post.pic_infos) {
-      mediaHTML += combineImageHtml(post.pic_infos[key].large, 320)
+      mediaHTML += combineImageHtml(post.pic_infos[key].largest, 320)
     }
     mediaHTML += "</div>"
 
     mediaHTML += '<div class="media media-large">'
     for (let key in post.pic_infos) {
-      mediaHTML += combineImageHtml(post.pic_infos[key].large, 500)
+      mediaHTML += combineImageHtml(post.pic_infos[key].largest, 500)
     }
     mediaHTML += "</div>"
   }
